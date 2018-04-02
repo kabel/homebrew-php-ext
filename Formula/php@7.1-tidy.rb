@@ -76,7 +76,9 @@ class PhpExtensionFormula < Formula
       end
 
       @php_parent = Formula[parent_name]
-      @extension = m[3].downcase
+      @extension = m[3].gsub(/([a-z])([A-Z])/) do
+        Regexp.last_match(1) + "_" + Regexp.last_match(2)
+      end.downcase
       @configure_args = %W[
         --with-php-config=#{php_parent.opt_bin/"php-config"}
       ]
