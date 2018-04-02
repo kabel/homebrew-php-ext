@@ -26,7 +26,7 @@ class PhpExtensionFormula < Formula
   end
 
   test do
-    assert_match extension.downcase shell_output("#{php_parent.opt_bin}/php -m").downcase,
+    assert_match extension.downcase, shell_output("#{php_parent.opt_bin}/php -m").downcase,
       "failed to find extension in php -m output"
   end
 
@@ -60,9 +60,7 @@ class PhpExtensionFormula < Formula
     attr_reader :configure_args, :php_parent, :extension
 
     def configure_arg(args)
-      @configure_args ||= %W[
-        --with-php-config=#{php_parent.opt_bin/"php-config"}
-      ]
+      @configure_args ||= []
       @configure_args.concat(Array(args))
     end
 
@@ -79,6 +77,9 @@ class PhpExtensionFormula < Formula
 
       @php_parent = Formula[parent_name]
       @extension = m[3].downcase
+      @configure_args = %W[
+        --with-php-config=#{php_parent.opt_bin/"php-config"}
+      ]
 
       homepage php_parent.homepage + extension
       url php_parent.stable.url
