@@ -97,6 +97,8 @@ class PhpImap < PhpExtensionFormula
   desc "IMAP Extension for PHP 7.2"
   extension_dsl
 
+  conflicts_with "php-recode", :because => "because both share the same internal symbols"
+
   depends_on "imap-uw"
   depends_on "openssl"
 

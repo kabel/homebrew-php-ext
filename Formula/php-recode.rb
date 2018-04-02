@@ -93,18 +93,15 @@ class PhpExtensionFormula < Formula
   end
 end
 
-class PhpAT56Imap < PhpExtensionFormula
-  desc "IMAP Extension for PHP 5.6"
+class PhpRecode < PhpExtensionFormula
+  desc "GNU Recode Extension for PHP 7.2"
   extension_dsl
 
-  conflicts_with "php@5.6-recode", :because => "because both share the same internal symbols"
+  conflicts_with "php-imap", :because => "because both share the same internal symbols"
 
-  depends_on "imap-uw"
-  depends_on "openssl"
+  depends_on "recode"
 
   configure_arg %W[
-    --with-imap=#{Formula["imap-uw"].opt_prefix}
-    --with-imap-ssl=#{Formula["openssl"].opt_prefix}
-    --with-kerberos
+    --with-recode=#{Formula["recode"].opt_prefix}
   ]
 end
