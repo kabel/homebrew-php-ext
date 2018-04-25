@@ -141,7 +141,7 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
                   .sort_by(&:to_s)
                   .map { |key, value| "#{CGI.escape(key.to_s)}=#{CGI.escape(value.to_s)}" }
                   .join(";")
-    username, password = self.class.get_credentials
+    username, password = self.class.credentials
     referer = "http://www.oracle.com/"
 
     req_output, = curl_output(
