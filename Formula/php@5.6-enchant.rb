@@ -14,11 +14,8 @@ class PhpAT56Enchant < PhpExtensionFormula
   end
 
   def install
-    configure_args.concat(
-      %W[
-        --with-enchant=#{prefix}/vendor
-      ],
-    )
+    configure_args << "--with-enchant=#{prefix}/vendor"
+
     resource("enchant").stage do
       system "./configure", "--disable-dependency-tracking",
                             "--prefix=#{prefix}/vendor",

@@ -7,7 +7,5 @@ class PhpAT56Recode < PhpExtensionFormula
 
   depends_on "recode"
 
-  configure_arg %W[
-    --with-recode=#{Formula["recode"].opt_prefix}
-  ]
+  configure_arg "--with-recode=#{Formula["recode"].opt_prefix}"
 end
