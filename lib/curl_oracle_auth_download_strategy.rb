@@ -41,34 +41,49 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
 
   private
 
-  def _fetch
-    cookies = self.class.cookies
-                  .sort_by(&:to_s)
-                  .map { |key, value| "#{CGI.escape(key.to_s)}=#{CGI.escape(value.to_s)}" }
-                  .join(";")
+  def _fetch(url:, resolved_url:)
+    escape_data = ->(d) { ["-d", URI.encode_www_form([d])] }
+
+    meta[:cookies] = self.class.cookies
+    meta[:user_agent] = :browser
+    meta[:referer] = "https://login.oracle.com/mysso/signon.jsp"
+
     username, password = self.class.credentials
-    referer = "http://www.oracle.com/"
 
     req_output, = curl_output(
-      "--silent",
-      "--cookie", cookies, "--cookie-jar", self.class.cookie_jar,
-      "--referer", referer,
-      "--location", @url,
-      :user_agent => :browser
+      "--silent", "--location",
+      "-c", self.class.cookie_jar,
+      url
     )
 
     m = /name="OAM_REQ" value="([^"]+)"/.match(req_output)
-    odie "Invalid Oracle response." if m.nil?
+    raise CurlDownloadStrategyError, "Invalid Oracle response." if m.nil?
     oam_req = m.captures.first
 
+    m = /name="site2pstoretoken" value="([^"]+)"/.match(req_output)
+    raise CurlDownloadStrategyError, "Invalid Oracle response." if m.nil?
+    site2pstoretoken = m.captures.first
+
+    m = /name="request_id" value="([^"]+)"/.match(req_output)
+    raise CurlDownloadStrategyError, "Invalid Oracle response." if m.nil?
+    request_id = m.captures.first
+
+    data = {
+      "locale" => "",
+      "OAM_REQ" => oam_req,
+      "password" => password,
+      "request_id" => request_id,
+      "site2pstoretoken" => site2pstoretoken,
+      "ssousername" => username,
+      "v" => "v1.4"
+    }
+
     curl_download(
-      "--cookie", cookies, "--cookie-jar", self.class.cookie_jar,
-      "--referer", referer,
-      "--data-urlencode", "ssousername=#{username}",
-      "--data-urlencode", "password=#{password}",
-      "--data-urlencode", "OAM_REQ=#{oam_req}",
+      "-b", self.class.cookie_jar,
+      "-c", self.class.cookie_jar,
+      *data.flat_map(&escape_data),
       "https://login.oracle.com/oam/server/sso/auth_cred_submit",
-      :to => temporary_path, :user_agent => :browser
+      :to => temporary_path
     )
 
     auth_fail = false
@@ -82,7 +97,11 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
 
     if auth_fail
       temporary_path.delete
-      odie "Bad Oracle Account credentials"
+      raise CurlDownloadStrategyError, "Bad Oracle Account credentials"
     end
+  end
+
+  def resolve_url_and_basename(url)
+    [url, parse_basename(url)]
   end
 end
