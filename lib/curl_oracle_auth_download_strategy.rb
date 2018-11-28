@@ -101,7 +101,7 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
     end
   end
 
-  def resolve_url_and_basename(url)
-    [url, parse_basename(url)]
+  def resolve_url_basename_time(url)
+    [url, parse_basename(url), nil]
   end
 end
