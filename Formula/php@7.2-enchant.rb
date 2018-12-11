@@ -1,6 +1,6 @@
 require File.expand_path("../lib/php_extension_formula", __dir__)
 
-class PhpAT70Enchant < PhpExtensionFormula
+class PhpAT72Enchant < PhpExtensionFormula
   extension_dsl "Enchant Extension"
 
   depends_on "pkg-config" => :build

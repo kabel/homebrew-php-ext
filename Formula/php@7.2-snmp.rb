@@ -1,6 +1,6 @@
 require File.expand_path("../lib/php_extension_formula", __dir__)
 
-class PhpAT70Snmp < PhpExtensionFormula
+class PhpAT72Snmp < PhpExtensionFormula
   extension_dsl "SNMP Extension"
 
   depends_on "net-snmp"

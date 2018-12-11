@@ -1,9 +1,9 @@
 require File.expand_path("../lib/php_extension_formula", __dir__)
 
-class PhpAT70Imap < PhpExtensionFormula
+class PhpAT72Imap < PhpExtensionFormula
   extension_dsl "IMAP Extension"
 
-  conflicts_with "php@7.0-recode", :because => "because both share the same internal symbols"
+  conflicts_with "php@7.2-recode", :because => "because both share the same internal symbols"
 
   depends_on "imap-uw"
   depends_on "openssl"
