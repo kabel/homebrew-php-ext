@@ -78,12 +78,14 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
       "v" => "v1.4"
     }
 
-    curl_download(
+    temporary_path.dirname.mkpath
+    curl(
+      "--location", "--remote-time", "--continue-at", 0,
+      "--output", temporary_path,
       "-b", self.class.cookie_jar,
       "-c", self.class.cookie_jar,
       *data.flat_map(&escape_data),
-      "https://login.oracle.com/oam/server/sso/auth_cred_submit",
-      :to => temporary_path
+      "https://login.oracle.com/oam/server/sso/auth_cred_submit"
     )
 
     auth_fail = false
