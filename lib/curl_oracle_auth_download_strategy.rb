@@ -41,7 +41,7 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
 
   private
 
-  def _fetch(url:, resolved_url:)
+  def _fetch(url:, **)
     escape_data = ->(d) { ["-d", URI.encode_www_form([d])] }
 
     meta[:cookies] = self.class.cookies
@@ -69,13 +69,13 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
     request_id = m.captures.first
 
     data = {
-      "locale" => "",
-      "OAM_REQ" => oam_req,
-      "password" => password,
-      "request_id" => request_id,
+      "locale"           => "",
+      "OAM_REQ"          => oam_req,
+      "password"         => password,
+      "request_id"       => request_id,
       "site2pstoretoken" => site2pstoretoken,
-      "ssousername" => username,
-      "v" => "v1.4"
+      "ssousername"      => username,
+      "v"                => "v1.4",
     }
 
     temporary_path.dirname.mkpath

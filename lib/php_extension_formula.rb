@@ -32,7 +32,7 @@ class PhpExtensionFormula < Formula
 
   private
 
-  delegate [
+  delegate [ # rubocop:disable Layout/AlignHash
     :php_parent,
     :extension,
     :configure_args,
@@ -50,7 +50,7 @@ class PhpExtensionFormula < Formula
   end
 
   class << self
-    NAME_PATTERN = /^Php(?:AT([57])(\d+))?(.+)/
+    NAME_PATTERN = /^Php(?:AT([57])(\d+))?(.+)/.freeze
     attr_reader :configure_args, :php_parent, :extension
 
     def configure_arg(args)
