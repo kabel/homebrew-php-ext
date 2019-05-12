@@ -4,7 +4,18 @@ Core PHP extension formulae for the Homebrew package manager. These extensions a
 Other extensions that used to be available from, the now deprecated, [Homebrew/php](https://github.com/Homebrew/homebrew-php/) should be installed through [PECL](https://pecl.php.net/).
 
 ## How do I install these formulae?
-`brew tap kabel/php-ext` then `brew install <formula>`
+
+Run
+
+```
+brew tap kabel/php-ext
+```
+
+followed by
+
+```
+brew install <formula>
+```
 
 ## Troubleshooting
 First, please run `brew update` and `brew doctor`.
