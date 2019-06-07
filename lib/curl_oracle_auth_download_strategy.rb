@@ -60,9 +60,9 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
     raise CurlDownloadStrategyError, "Invalid Oracle response." if m.nil?
     oam_req = m.captures.first
 
-    m = /name="site2pstoretoken" value="([^"]+)"/.match(req_output)
-    raise CurlDownloadStrategyError, "Invalid Oracle response." if m.nil?
-    site2pstoretoken = m.captures.first
+    # m = /name="site2pstoretoken" value="([^"]+)"/.match(req_output)
+    # raise CurlDownloadStrategyError, "Invalid Oracle response." if m.nil?
+    # site2pstoretoken = m.captures.first
 
     m = /name="request_id" value="([^"]+)"/.match(req_output)
     raise CurlDownloadStrategyError, "Invalid Oracle response." if m.nil?
@@ -73,7 +73,7 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
       "OAM_REQ"          => oam_req,
       "password"         => password,
       "request_id"       => request_id,
-      "site2pstoretoken" => site2pstoretoken,
+      # "site2pstoretoken" => site2pstoretoken,
       "ssousername"      => username,
       "v"                => "v1.4",
     }
