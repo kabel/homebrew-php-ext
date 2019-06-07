@@ -46,15 +46,15 @@ class OraclePhpExtensionFormula < PhpExtensionFormula
     def extension_dsl(*)
       super
       resource "instantclient-basic" do
-        url "http://download.oracle.com/otn/mac/instantclient/122010/instantclient-basic-macos.x64-12.2.0.1.0-2.zip",
+        url "http://download.oracle.com/otn/mac/instantclient/181000/instantclient-basic-macos.x64-18.1.0.0.0.zip",
           :using => CurlOracleAuthDownloadStrategy
-        sha256 "3ed3102e5a24f0da638694191edb34933309fb472eb1df21ad5c86eedac3ebb9"
+        sha256 "fac3cdaaee7526f6c50ff167edb4ba7ab68efb763de24f65f63fb48cc1ba44c0"
       end
 
       resource "instantclient-sdk" do
-        url "http://download.oracle.com/otn/mac/instantclient/122010/instantclient-sdk-macos.x64-12.2.0.1.0-2.zip",
+        url "http://download.oracle.com/otn/mac/instantclient/181000/instantclient-sdk-macos.x64-18.1.0.0.0-2.zip",
           :using => CurlOracleAuthDownloadStrategy
-        sha256 "e0befca9c4e71ebc9f444957ffa70f01aeeec5976ea27c40406471b04c34848b"
+        sha256 "98e6d797f1ce11e59b042b232f62380cec29ec7d5387b88a9e074b741c13e63a"
       end
     end
   end
