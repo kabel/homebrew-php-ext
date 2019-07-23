@@ -3,6 +3,10 @@ Core PHP extension formulae for the Homebrew package manager. These extensions a
 
 Other extensions that used to be available from, the now deprecated, [Homebrew/php](https://github.com/Homebrew/homebrew-php/) should be installed through [PECL](https://pecl.php.net/).
 
+---
+
+_Experimental_: I have a new tap for select pecl packages, as the `pecl` command is being phased out. See [kabel/pecl](https://github.com/kabel/homebrew-pecl).
+
 ## How do I install these formulae?
 
 Run
