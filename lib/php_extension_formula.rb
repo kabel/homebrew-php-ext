@@ -10,6 +10,7 @@ class PhpExtensionFormula < Formula
     system "./configure", *configure_args
     system "make"
     (lib/module_path).install "modules/#{extension}.so"
+    (include/"php/ext"/extension).install Dir["php_*.h"]
   end
 
   def post_install
@@ -67,6 +68,7 @@ class PhpExtensionFormula < Formula
         parent_name = "php"
       else
         parent_name = "php@" + m.captures[0..1].join(".")
+        keg_only :versioned_formula
       end
 
       @php_parent = Formula[parent_name]
@@ -84,6 +86,7 @@ class PhpExtensionFormula < Formula
       send php_parent.stable.checksum.hash_type, php_parent.stable.checksum.hexdigest
 
       depends_on "autoconf" => :build
+      depends_on "pkg-config" => :build
       depends_on parent_name
     end
   end
