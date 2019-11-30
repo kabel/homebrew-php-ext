@@ -13,4 +13,12 @@ class PhpImap < PhpExtensionFormula
     --with-imap-ssl=#{Formula["openssl@1.1"].opt_prefix}
     --with-kerberos
   ]
+
+  def install
+    ENV["PHP_OPENSSL"] = "yes"
+    # system pkg-config missing
+    ENV["KERBEROS_CFLAGS"] = " "
+    ENV["KERBEROS_LIBS"] = "-lkrb5"
+    super
+  end
 end
