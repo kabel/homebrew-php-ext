@@ -7,6 +7,7 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
       @username = @password = nil
       return if cookie_jar.nil?
       return unless cookie_jar.exist?
+
       cookie_jar.delete
     end
 
@@ -58,6 +59,7 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
 
     m = /name="OAM_REQ" value="([^"]+)"/.match(req_output)
     raise CurlDownloadStrategyError, "Invalid Oracle response." if m.nil?
+
     oam_req = m.captures.first
 
     # m = /name="site2pstoretoken" value="([^"]+)"/.match(req_output)
@@ -66,16 +68,17 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
 
     m = /name="request_id" value="([^"]+)"/.match(req_output)
     raise CurlDownloadStrategyError, "Invalid Oracle response." if m.nil?
+
     request_id = m.captures.first
 
     data = {
-      "locale"           => "",
-      "OAM_REQ"          => oam_req,
-      "password"         => password,
-      "request_id"       => request_id,
+      "locale"      => "",
+      "OAM_REQ"     => oam_req,
+      "password"    => password,
+      "request_id"  => request_id,
+      "ssousername" => username,
+      "v"           => "v1.4",
       # "site2pstoretoken" => site2pstoretoken,
-      "ssousername"      => username,
-      "v"                => "v1.4",
     }
 
     temporary_path.dirname.mkpath

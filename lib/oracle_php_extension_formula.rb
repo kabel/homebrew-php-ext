@@ -3,13 +3,8 @@ require File.expand_path("../lib/curl_oracle_auth_download_strategy", __dir__)
 
 class OraclePhpExtensionFormula < PhpExtensionFormula
   def install
-    CurlOracleAuthDownloadStrategy.with_session(
-      { "oraclelicense" => "accept-ic_solarisx8664-cookie" },
-      buildpath/".cookie_jar",
-    ) do
-      (prefix/"instantclient").install resource("instantclient-basic")
-      (prefix/"instantclient").install resource("instantclient-sdk")
-    end
+    (prefix/"instantclient").install resource("instantclient-basic")
+    (prefix/"instantclient").install resource("instantclient-sdk")
 
     instantclient_version = resource("instantclient-basic")
                             .version
@@ -46,15 +41,13 @@ class OraclePhpExtensionFormula < PhpExtensionFormula
     def extension_dsl(*)
       super
       resource "instantclient-basic" do
-        url "http://download.oracle.com/otn/mac/instantclient/181000/instantclient-basic-macos.x64-18.1.0.0.0.zip",
-          :using => CurlOracleAuthDownloadStrategy
-        sha256 "fac3cdaaee7526f6c50ff167edb4ba7ab68efb763de24f65f63fb48cc1ba44c0"
+        url "https://download.oracle.com/otn_software/mac/instantclient/193000/instantclient-basic-macos.x64-19.3.0.0.0dbru.zip"
+        sha256 "f4335c1d53e8188a3a8cdfb97494ff87c4d0f481309284cf086dc64080a60abd"
       end
 
       resource "instantclient-sdk" do
-        url "http://download.oracle.com/otn/mac/instantclient/181000/instantclient-sdk-macos.x64-18.1.0.0.0-2.zip",
-          :using => CurlOracleAuthDownloadStrategy
-        sha256 "98e6d797f1ce11e59b042b232f62380cec29ec7d5387b88a9e074b741c13e63a"
+        url "https://download.oracle.com/otn_software/mac/instantclient/193000/instantclient-sdk-macos.x64-19.3.0.0.0dbru.zip"
+        sha256 "b46b4b87af593f7cfe447cfb903d1ae5073cec34049143ad8cdc9f3e78b23b27"
       end
     end
   end
