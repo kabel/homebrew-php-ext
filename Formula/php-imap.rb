@@ -7,6 +7,7 @@ class PhpImap < PhpExtensionFormula
 
   depends_on "imap-uw"
   depends_on "openssl@1.1"
+  depends_on "krb5"
 
   configure_arg %W[
     --with-imap=#{Formula["imap-uw"].opt_prefix}
@@ -16,9 +17,6 @@ class PhpImap < PhpExtensionFormula
 
   def install
     ENV["PHP_OPENSSL"] = "yes"
-    # system pkg-config missing
-    ENV["KERBEROS_CFLAGS"] = " "
-    ENV["KERBEROS_LIBS"] = "-lkrb5"
     super
   end
 end
