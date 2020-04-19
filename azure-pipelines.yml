@@ -1,14 +1,20 @@
 jobs:
 - job: macOS
   pool:
-    vmImage: macOS-10.14
+    vmImage: macOS-latest
   steps:
     - bash: |
         set -e
-        brew update
+        brew update-reset
         HOMEBREW_TAP_DIR="/usr/local/Homebrew/Library/Taps/kabel/homebrew-php-ext"
         mkdir -p "$HOMEBREW_TAP_DIR"
         rm -rf "$HOMEBREW_TAP_DIR"
         ln -s "$PWD" "$HOMEBREW_TAP_DIR"
-        brew test-bot
+        if [ -z "$SYSTEM_PULLREQUEST_TARGETBRANCH" ]; then export SYSTEM_PULLREQUEST_TARGETBRANCH="master"; fi
+        if [ "$BUILD_REASON" = "PullRequest" ]; then export GITHUB_EVENT_NAME="pull_request"; fi
+        export GITHUB_BASE_REF="$SYSTEM_PULLREQUEST_TARGETBRANCH"
+        export GITHUB_SHA="$BUILD_SOURCEVERSION"
+        export GITHUB_ACTIONS="fake"
+        export HOMEBREW_GITHUB_ACTIONS=fake
+        brew test-bot --tap="kabel/php-ext"
       displayName: Run brew test-bot
