@@ -1,4 +1,7 @@
 class PhpExtensionFormula < Formula
+  desc "PHP Extension"
+  homepage "https://www.php.net/"
+
   def initialize(*)
     super
     active_spec.owner = php_parent.stable.owner
@@ -33,11 +36,7 @@ class PhpExtensionFormula < Formula
 
   private
 
-  delegate [ # rubocop:disable Layout/AlignHash
-    :php_parent,
-    :extension,
-    :configure_args,
-  ] => :"self.class"
+  delegate [:php_parent, :extension, :configure_args] => :"self.class"
 
   def extension_type
     # extension or zend_extension

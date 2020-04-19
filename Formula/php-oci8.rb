@@ -1,4 +1,4 @@
-require File.expand_path("../lib/oracle_php_extension_formula", __dir__)
+require_relative "../lib/oracle_php_extension_formula"
 
 class PhpOci8 < OraclePhpExtensionFormula
   extension_dsl "OCI8 Extension"
