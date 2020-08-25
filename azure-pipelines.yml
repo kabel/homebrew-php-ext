@@ -15,6 +15,19 @@ jobs:
         export GITHUB_BASE_REF="$SYSTEM_PULLREQUEST_TARGETBRANCH"
         export GITHUB_SHA="$BUILD_SOURCEVERSION"
         export GITHUB_ACTIONS="fake"
+        export GITHUB_REPOSITORY="$BUILD_REPOSITORY_NAME"
+        export GITHUB_REF="$BUILD_SOURCEBRANCH"
         export HOMEBREW_GITHUB_ACTIONS=fake
-        brew test-bot --tap="kabel/php-ext"
+        echo "==> Dumping Pipelines Vars..."
+        echo "BUILD_REPOSITORY_NAME=$BUILD_REPOSITORY_NAME"
+        echo "BUILD_SOURCEBRANCH=$BUILD_SOURCEBRANCH"
+        echo "BUILD_SOURCEBRANCHNAME=$BUILD_SOURCEBRANCHNAME"
+        echo "BUILD_SOURCEVERSION=$BUILD_SOURCEVERSION"
+        echo "BUILD_REASON=$BUILD_REASON"
+        echo "SYSTEM_PULLREQUEST_SOURCEBRANCH=$SYSTEM_PULLREQUEST_SOURCEBRANCH"
+        echo "SYSTEM_PULLREQUEST_TARGETBRANCH=$SYSTEM_PULLREQUEST_TARGETBRANCH"
+        echo
+        TEST_PARAMS=""
+        if [ "$BUILD_REASON" != "PullRequest" -a "$BUILD_SOURCEBRANCHNAME" = "$SYSTEM_PULLREQUEST_TARGETBRANCH" ]; then TEST_PARAMS="--only-tap-syntax"; fi
+        brew test-bot --tap=kabel/php-ext $TEST_PARAMS
       displayName: Run brew test-bot
