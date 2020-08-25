@@ -3,7 +3,7 @@ require_relative "../lib/php_extension_formula"
 class PhpImap < PhpExtensionFormula
   extension_dsl "IMAP Extension"
 
-  conflicts_with "php-recode", :because => "because both share the same internal symbols"
+  conflicts_with "php-recode", because: "because both share the same internal symbols"
 
   depends_on "imap-uw"
   depends_on "openssl@1.1"
