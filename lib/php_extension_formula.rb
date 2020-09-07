@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PhpExtensionFormula < Formula
   desc "PHP Extension"
   homepage "https://www.php.net/"
@@ -20,7 +22,8 @@ class PhpExtensionFormula < Formula
     ext_config_path = etc/"php"/php_parent.version.major_minor/"conf.d"/"ext-#{extension}.ini"
     if ext_config_path.exist?
       inreplace ext_config_path,
-        /#{extension_type}=.*$/, "#{extension_type}=#{opt_lib/module_path}/#{extension}.so"
+                /#{extension_type}=.*$/,
+                "#{extension_type}=#{opt_lib/module_path}/#{extension}.so"
     else
       ext_config_path.write <<~EOS
         [#{extension}]
@@ -30,8 +33,9 @@ class PhpExtensionFormula < Formula
   end
 
   test do
-    assert_match extension.downcase, shell_output("#{php_parent.opt_bin}/php -m").downcase,
-      "failed to find extension in php -m output"
+    assert_match extension.downcase,
+                 shell_output("#{php_parent.opt_bin}/php -m").downcase,
+                 "failed to find extension in php -m output"
   end
 
   private
@@ -50,7 +54,7 @@ class PhpExtensionFormula < Formula
   end
 
   class << self
-    NAME_PATTERN = /^Php(?:AT([57])(\d+))?(.+)/.freeze
+    NAME_PATTERN = /^Php(?:AT([578])(\d+))?(.+)/.freeze
     attr_reader :configure_args, :php_parent, :extension
 
     def configure_arg(args)
@@ -61,18 +65,18 @@ class PhpExtensionFormula < Formula
     def extension_dsl(description = nil)
       class_name = name.split("::").last
       m = NAME_PATTERN.match(class_name)
-      if m.nil?
-        raise "Bad PHP Extension name for #{class_name}"
-      elsif m[1].nil?
+      raise "Bad PHP Extension name for #{class_name}" if m.nil?
+
+      if m[1].nil?
         parent_name = "php"
       else
-        parent_name = "php@" + m.captures[0..1].join(".")
+        parent_name = "php@#{m.captures[0..1].join(".")}"
         keg_only :versioned_formula
       end
 
       @php_parent = Formula[parent_name]
       @extension = m[3].gsub(/([a-z])([A-Z])/) do
-        Regexp.last_match(1) + "_" + Regexp.last_match(2)
+        "#{Regexp.last_match(1)}_#{Regexp.last_match(2)}"
       end.downcase
       @configure_args = %W[
         --with-php-config=#{php_parent.opt_bin/"php-config"}
