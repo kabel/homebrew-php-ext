@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
   class << self
     attr_reader :username, :password
@@ -100,10 +102,10 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
       end
     end
 
-    if auth_fail
-      temporary_path.delete
-      raise CurlDownloadStrategyError, "Bad Oracle Account credentials"
-    end
+    return unless auth_fail
+
+    temporary_path.delete
+    raise CurlDownloadStrategyError, "Bad Oracle Account credentials"
   end
 
   def resolve_url_basename_time(url)
