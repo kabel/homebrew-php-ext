@@ -14,7 +14,7 @@ class OraclePhpExtensionFormula < PhpExtensionFormula
                             .split("-")[0]
 
     arg = "#{self.class.instantclient_arg}=instantclient,#{prefix}/instantclient"
-    arg << ",#{instantclient_version}" if self.class.instantclient_with_version
+    arg += ",#{instantclient_version}" if self.class.instantclient_with_version
 
     configure_args << arg
     super
