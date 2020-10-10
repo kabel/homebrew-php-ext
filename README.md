@@ -1,11 +1,14 @@
+![](https://repository-images.githubusercontent.com/127686768/dc404b00-f5dd-11ea-95bd-7de02ed45411)
+
 # kabel/php-ext
 Core PHP extension formulae for the Homebrew package manager. These extensions are not a part of [Homebrew/core](https://github.com/Homebrew/homebrew-core/) because they are either not popular enough or have known stability problems.
 
-Other extensions that used to be available from, the now deprecated, [Homebrew/php](https://github.com/Homebrew/homebrew-php/) should be installed through [PECL](https://pecl.php.net/).
+This tap includes one of the sources for the popular `imap` extension that isn't included in the core homebrew `php` formulae because of default system performance issues.
 
----
+## What about other formulae (PECL)?
+Users have previously asked about a tap that contains pre-built binary packages (bottles) of other PHP extensions, like `xdebug` and `imagick`. Initially I didn't want to try and support those and encouraged users to use the `pecl` installer. Now that the upstream PHP team is phasing out the PEAR/PECL tools in the newest releases, I've started a new tap that has some of the most popular extensions from the PECL registry.
 
-_Experimental_: I have a new tap for select pecl packages, as the `pecl` command is being phased out. See [kabel/pecl](https://github.com/kabel/homebrew-pecl).
+See [kabel/pecl](https://github.com/kabel/homebrew-pecl). And consider tapping it too: `brew tap kabel/pecl`
 
 ## How do I install these formulae?
 
