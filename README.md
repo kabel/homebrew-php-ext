@@ -1,6 +1,9 @@
 ![](https://repository-images.githubusercontent.com/127686768/dc404b00-f5dd-11ea-95bd-7de02ed45411)
 
 # kabel/php-ext
+![](https://img.shields.io/github/sponsors/kabel?style=social)
+![](https://img.shields.io/azure-devops/build/kevinabel0613/kevinabel/2?style=social)
+
 Core PHP extension formulae for the Homebrew package manager. These extensions are not a part of [Homebrew/core](https://github.com/Homebrew/homebrew-core/) because they are either not popular enough or have known stability problems.
 
 This tap includes one of the sources for the popular `imap` extension that isn't included in the core homebrew `php` formulae because of default system performance issues.
