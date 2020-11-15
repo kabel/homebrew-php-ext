@@ -30,6 +30,8 @@ brew install <formula>
 ## Troubleshooting
 First, please run `brew update` and `brew doctor`.
 
+If you can an error about the `master` branch, please try `brew update-reset` to fix the default branch association to `main`.
+
 Second, read the [Troubleshooting Checklist](https://docs.brew.sh/Troubleshooting).
 
 **If you don't read these it will take us far longer to help you with your problem.**
