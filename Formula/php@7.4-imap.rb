@@ -1,6 +1,6 @@
 require_relative "../lib/php_extension_formula"
 
-class PhpAT72Imap < PhpExtensionFormula
+class PhpAT74Imap < PhpExtensionFormula
   extension_dsl "IMAP Extension"
 
   conflicts_with "php@7.2-recode", because: "because both share the same internal symbols"

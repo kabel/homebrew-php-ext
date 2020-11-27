@@ -1,6 +1,6 @@
 require_relative "../lib/php_extension_formula"
 
-class PhpAT72Enchant < PhpExtensionFormula
+class PhpAT74Enchant < PhpExtensionFormula
   extension_dsl "Enchant Extension"
 
   depends_on "pkg-config" => :build

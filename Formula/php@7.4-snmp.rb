@@ -1,6 +1,6 @@
 require_relative "../lib/php_extension_formula"
 
-class PhpAT72Snmp < PhpExtensionFormula
+class PhpAT74Snmp < PhpExtensionFormula
   extension_dsl "SNMP Extension"
 
   depends_on "net-snmp"
