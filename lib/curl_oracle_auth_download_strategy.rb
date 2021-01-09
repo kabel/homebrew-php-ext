@@ -17,18 +17,18 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
       @username ||= ENV["HOMEBREW_ORACLE_USERNAME"]
       @password ||= ENV["HOMEBREW_ORACLE_PASSWORD"]
 
-      return [@username, @password] unless @username.nil? || @password.nil?
+      if @username.nil? || @password.nil?
+        require "io/console"
+        ohai "You must have an Oracle Account to continue."
+        ohai "Enter your Oracle Account username: "
+        @username = $stdin.gets.chomp
+        ohai "Enter your Oracle Account password: "
+        @password = $stdin.noecho(&:gets).chomp
 
-      require "io/console"
-      ohai "You must have an Oracle Account to continue."
-      ohai "Enter your Oracle Account username: "
-      @username = $stdin.gets.chomp
-      ohai "Enter your Oracle Account password: "
-      @password = $stdin.noecho(&:gets).chomp
-
-      if @username.empty? || @password.empty?
-        clean
-        odie "Invalid Oracle Account"
+        if @username.empty? || @password.empty?
+          clean
+          odie "Invalid Oracle Account"
+        end
       end
 
       [@username, @password]
