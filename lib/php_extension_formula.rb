@@ -86,7 +86,7 @@ class PhpExtensionFormula < Formula
 
       homepage php_parent.homepage + extension
       url php_parent.stable.url
-      send php_parent.stable.checksum.hash_type, php_parent.stable.checksum.hexdigest
+      sha256 php_parent.stable.checksum.hexdigest
 
       depends_on "autoconf" => :build
       depends_on "pkg-config" => :build
