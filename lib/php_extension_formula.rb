@@ -12,10 +12,11 @@ class PhpExtensionFormula < Formula
   def install
     cd "ext/#{extension}"
     system php_parent.bin/"phpize"
+    inreplace "configure",
+              "EXTENSION_DIR=`$PHP_CONFIG --extension-dir 2>/dev/null`",
+              "EXTENSION_DIR=#{lib/module_path}"
     system "./configure", *configure_args
-    system "make"
-    (lib/module_path).install "modules/#{extension}.so"
-    (include/"php/ext"/extension).install Dir["php_*.h"]
+    system "make", "phpincludedir=#{include}/php", "install"
   end
 
   def post_install
@@ -33,9 +34,9 @@ class PhpExtensionFormula < Formula
   end
 
   test do
-    assert_match extension.downcase,
-                 shell_output("#{php_parent.opt_bin}/php -m").downcase,
-                 "failed to find extension in php -m output"
+    assert_match(/^#{extension}$/i,
+                 shell_output("#{php_parent.opt_bin}/php -m"),
+                 "failed to find extension in php -m output")
   end
 
   private
