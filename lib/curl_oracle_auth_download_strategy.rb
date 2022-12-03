@@ -14,8 +14,8 @@ class CurlOracleAuthDownloadStrategy < CurlDownloadStrategy
     end
 
     def credentials
-      @username ||= ENV["HOMEBREW_ORACLE_USERNAME"]
-      @password ||= ENV["HOMEBREW_ORACLE_PASSWORD"]
+      @username ||= ENV.fetch("HOMEBREW_ORACLE_USERNAME", nil)
+      @password ||= ENV.fetch("HOMEBREW_ORACLE_PASSWORD", nil)
 
       if @username.nil? || @password.nil?
         require "io/console"
