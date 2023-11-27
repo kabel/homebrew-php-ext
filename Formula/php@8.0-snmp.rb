@@ -6,7 +6,7 @@ class PhpAT80Snmp < PhpExtensionFormula
   deprecate! date: "2022-11-26", because: :versioned_formula
 
   depends_on "net-snmp"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   configure_arg "--with-snmp=#{Formula["net-snmp"].opt_prefix}"
 end
