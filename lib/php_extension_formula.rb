@@ -4,7 +4,7 @@ class PhpExtensionFormula < Formula
   desc "PHP Extension"
   homepage "https://www.php.net/"
 
-  def initialize(*)
+  def initialize(name, path, spec, alias_path: nil, tap: nil, force_bottle: false)
     super
     active_spec.owner = php_parent.stable.owner
   end
