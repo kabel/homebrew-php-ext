@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "../lib/php_extension_formula"
-require_relative "../lib/curl_oracle_auth_download_strategy"
 
 class OraclePhpExtensionFormula < PhpExtensionFormula
   def install
