@@ -55,7 +55,7 @@ class PhpExtensionFormula < Formula
   end
 
   class << self
-    NAME_PATTERN = /^Php(?:AT([578])(\d+))?(.+)/.freeze
+    NAME_PATTERN = /^Php(?:AT([578])(\d+))?(.+)/
     attr_reader :configure_args, :php_parent, :extension
 
     def configure_arg(args)

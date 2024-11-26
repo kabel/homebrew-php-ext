@@ -17,13 +17,13 @@ See [kabel/pecl](https://github.com/kabel/homebrew-pecl). And consider tapping i
 
 Run
 
-```
+```sh
 brew tap kabel/php-ext
 ```
 
 followed by
 
-```
+```sh
 brew install <formula>
 ```
 
