@@ -1,7 +1,9 @@
 require_relative "../lib/php_extension_formula"
 
-class PhpImap < PhpExtensionFormula
+class PhpAT83Imap < PhpExtensionFormula
   extension_dsl "IMAP Extension"
+
+  deprecate! date: "2027-12-31", because: :unsupported
 
   depends_on "imap-uw"
   depends_on "openssl@3"
